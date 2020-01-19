@@ -1,0 +1,73 @@
+<!Doctype html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+</head>
+<body>
+    <header>
+
+
+    </header>
+    <main>
+        <form id="create_form_id">
+            <select id="dojo_name_id"></select><br>
+            <!-- <select id="opne_number_id"></select><br> -->
+            <input type="date" id="open_day_date_id" /><br>
+            <input type="time" id="open_start_time_id" /><br>
+            <input type="time" id="open_end_time_id" /><br>
+            <input type="text" id="venue_point_id" placeholder="開催地" /><br>
+            <input type="text" id="dojo_emotion_id" placeholder="Dojoにかける熱意を一言で" /><br>
+            <select id="pc_Bring_in_id">
+                <option value="0">無し</option>
+                <option value="1">有り</option>
+            </select>
+            <input type="text" id="organizer_name_id" placeholder="主催者名">
+            <input type="text" id="application_url_id" placeholder="申し込み方法">
+            <input type="submit" id="create_submit_id" value="送信する">
+        </form>
+    </main>
+    <footer>
+    
+    </footer>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+    var dojo_name = ["安曇野","松本","上田","塩尻","諏訪子","茅野","伊那"];
+    
+    $(function(){
+        console.log("load!");
+
+        load_dojo_name();
+    });
+
+    //dojoロード処理
+    function load_dojo_name(){
+        $("#dojo_name_id").append('<option value="null">Dojo名を指定してください</option>');
+        for(var i = 0;i < dojo_name.length;i++){
+            $("#dojo_name_id").append('<option value="' + i + '">' + dojo_name[i] + "</option>");
+        }
+    }
+
+    //送信処理
+    $("#create_submit_id").click(function(){
+        var dojo_name = $("#dojo_name_id").val();
+        var open_day_date_id = $("#open_day_date_id").val();
+        var open_start_time_id = $("open_start_time_id").val();
+        var open_end_time_id = $("open_end_time_id").val();
+        var venue_point_id = $("venue_point_id").val();
+        var dojo_emotion_id = $("dojo_emotion_id").val();
+        var pc_Bring_in_id = $("pc_Bring_in_id").val();
+        var organizer_name_id = $("organizer_name_id").val();
+        var application_url_id = $("application_url_id").val();
+
+        if(dojo_name == null){
+            console.log("dojo_name Error!");
+        }else{
+            
+        }
+
+        return false;
+    });
+
+    </script>
+</body>
+</html>
