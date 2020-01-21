@@ -9,8 +9,15 @@ var chas_date_array;
 $(function(){
     console.log("load!");
 
+    var storage_result = localStorage.getItem('Save_Date');
+
     load_dojo_name();
-    load_temp();
+    if(storage_result == null){
+        load_reset();
+        load_temp();
+    }else{
+        load_date();
+    }
 });
 
 //dojoロード処理
@@ -21,6 +28,12 @@ function load_dojo_name(){
     }
 }
 
+function load_reset(){
+    $("#dojo_name_id").val("null");
+    $("#view_type_id").val("null");
+}
+
+//テンプレートロード
 function load_temp(){
     var temp_event = "曜日：@Open_day<br>\n" +
     "時間：@Start_time ～ @Close_time<br>\n" +
@@ -48,6 +61,37 @@ function load_temp(){
     $("#template_SNS_setting").val(temp_SNS);
 }
 
+//保存データ読み込み
+function load_date(){
+    var save_date = JSON.parse(localStorage.getItem('Save_Date'));
+
+    if(save_date['Dojo_name'] == "null"){
+        $("#dojo_name_id").val("null");
+    }else{
+        var chas_number = parseInt(save_date['Dojo_name']);
+        $("#dojo_name_id").val(chas_number);
+    }
+
+    if(save_date['View_type'] == "null"){
+        $("#view_type_id").val("null");
+    }else{
+        var chas_number = parseInt(save_date['View_type']);
+        $("#view_type_id").val(chas_number);
+    }
+
+    $("#open_start_time_id").val(save_date['Start_time']);
+    $("#open_end_time_id").val(save_date['Close_time']);
+    $("#venue_point_id").val(save_date['Open_venue']);
+    $("#dojo_emotion_id").val(save_date['A_word']);
+    $("#pc_Bring_in_id").val(save_date['Bring_in']);
+    $("#organizer_name_id").val(save_date['Org_name']);
+    $("#application_url_id").val(save_date['App_url']);
+
+    $("#template_event_setting").val(save_date['Event_temp']);
+    $("#template_mentor_setting").val(save_date['Mentor_temp']);
+    $("#template_SNS_setting").val(save_date['SNS_temp']);
+}
+
 //送信処理
 $("#create_submit_id").click(function(){
 
@@ -56,9 +100,10 @@ $("#create_submit_id").click(function(){
     var date_flag = false;
     var time_start_flag = false;
     var time_end_flag = false;
-    var time_flag = false;
+    var time_flag = true;
     var Error_flag = true;
     var insert_array = new Array(content_number);
+    var error_list = new Array();
 
     var dojo_name = $("#dojo_name_id").val();
     var open_day_date_id = $("#open_day_date_id").val();
@@ -69,7 +114,6 @@ $("#create_submit_id").click(function(){
     var pc_bring_in_id = $("#pc_Bring_in_id").val();
     var organizer_name_id = $("#organizer_name_id").val();
     var application_url_id = $("#application_url_id").val();
-
     var view_type_id = $("#view_type_id").val();
 
     insert_array[0] = dojo_name_temp[dojo_name];
@@ -83,13 +127,13 @@ $("#create_submit_id").click(function(){
 
     //===========================================================
     if(dojo_name == "null"){
-        console.log("dojo_name Error!");
+        error_list.push(1000);
         Error_flag = false;
     }
 
     //===========================================================
     if(open_day_date_id == ""){
-        console.log("open_day_date_id Error!");
+        error_list.push(1001);
         Error_flag = false;
     }else{
         var chas_date = new Date(open_day_date_id);
@@ -115,50 +159,54 @@ $("#create_submit_id").click(function(){
 
         if(date_flag == false){
             Error_flag = false;
-            console.log("open_day_date_id Past designation Error!");
+            error_list.push(1002);
         }
 
         var chas_date_str = "";
         chas_mon_A++;
-
-        switch(view_type_id){
-            case "null":
-                console.log("view_type_id Error!");
-                Error_flag = false;
-                break;
-            case "0":
-                chas_date_str = chas_year_A + "/" + chas_mon_A + "/" + chas_day_A;
-                break;
-            case "1":
-                chas_date_str = chas_year_A + "年" + chas_mon_A + "月" + chas_day_A + "日";
-                break;
-            case "2":
-                chas_date_str = chas_mon_A + "月" + chas_day_A + "日";
-                break;
-            case "3":
-                chas_date_str =  gengou_string + (chas_year_A - gengou_number) + "年" + chas_mon_A + "月" + chas_day_A + "日";
-                break;
-            case "4":
-                chas_date_str = chas_year_A - yser_split_number + "/" + chas_mon_A + "/" + chas_day_A + "(" + week_str[chas_week_A] + ")";
-                break;
-            case "5":
-                chas_date_str = chas_year_A + "/" + chas_mon_A + "/" + chas_day_A + " " + week_str[chas_week_A] + "曜日";
-                break;
-        }
-
-        insert_array[1] = chas_date_str;
     }
 
     //===========================================================
+    console.log(view_type_id);
+
+    switch(view_type_id){
+        case "null":
+            console.log("view_type_id Error!");
+            error_list.push(1003);
+            Error_flag = false;
+            break;
+        case "0":
+            chas_date_str = chas_year_A + "/" + chas_mon_A + "/" + chas_day_A;
+            break;
+        case "1":
+            chas_date_str = chas_year_A + "年" + chas_mon_A + "月" + chas_day_A + "日";
+            break;
+        case "2":
+            chas_date_str = chas_mon_A + "月" + chas_day_A + "日";
+            break;
+        case "3":
+            chas_date_str =  gengou_string + (chas_year_A - gengou_number) + "年" + chas_mon_A + "月" + chas_day_A + "日";
+            break;
+        case "4":
+            chas_date_str = chas_year_A - yser_split_number + "/" + chas_mon_A + "/" + chas_day_A + "(" + week_str[chas_week_A] + ")";
+            break;
+        case "5":
+            chas_date_str = chas_year_A + "/" + chas_mon_A + "/" + chas_day_A + " " + week_str[chas_week_A] + "曜日";
+            break;
+    }
+
+    insert_array[1] = chas_date_str;
+
+    //===========================================================
     if(open_start_time_id == ""){
-        console.log("open_start_time_id Error!");
+        error_list.push(1004);
         Error_flag = false;
     }else{
         time_start_flag = true;
     }
 
     if(open_end_time_id == ""){
-        console.log("open_end_time_id Error!");
+        error_list.push(1005);
         Error_flag = false;
     }else{
         time_end_flag = true;
@@ -176,23 +224,28 @@ $("#create_submit_id").click(function(){
     }
 
     if(time_flag == false){
-        console.log("open_start_time_id Past designation Error!");
+        error_list.push(1006);
         Error_flag = false;
     }
 
     //===========================================================
     if(organizer_name_id ==""){
-        console.log("organizer_name_id Error!");
+        error_list.push(1007);
         Error_flag = false;
     }
 
     //===========================================================
     if(application_url_id == ""){
-        console.log("application_url_id Error!");
+        error_list.push(1008);
         Error_flag = false;
     }
 
     console.log(Error_flag);
+
+    if(Error_flag == false){
+        error_alert(error_list);
+    }
+
     create_template(Error_flag,insert_array);
 
     return false;
@@ -210,7 +263,7 @@ function create_template(Error_flag,insert_array){
     @Open_venue = 開催地
     @A_word     = 熱意を一言
     @Bring_in   = PCの持ち込み
-    @org_name    = 主催者名
+    @Org_name    = 主催者名
     @App_url    = 申し込みURL
     =================================*/
     var content_array = ["@Dojo_name",
@@ -281,3 +334,61 @@ function click_copy(main_id){
     window.getSelection().addRange(chas_copy_data);
     document.execCommand('copy');
 }
+
+function error_alert(error_code_array){
+    /*===============================
+    1000    = dojo名未選択
+    1001    = 開催日未選択
+    1002    = 開催日が過去のもの
+    1003    = 表示形式が未選択
+    1004    = 開始時間が未選択
+    1005    = 終了時間が未選択
+    1006    = 終了時間が開催時間より過去のものを指定
+    1007    = 主催者名が未記入
+    1008    = 申し込みURLが未挿入
+    =================================*/
+    console.log(error_code_array);
+}
+
+$("#storage_save_id").click(function(){
+    var dojo_name = $("#dojo_name_id").val();
+    var open_start_time_id = $("#open_start_time_id").val();
+    var open_end_time_id = $("#open_end_time_id").val();
+    var venue_point_id = $("#venue_point_id").val();
+    var dojo_emotion_id = $("#dojo_emotion_id").val();
+    var pc_bring_in_id = $("#pc_Bring_in_id").val();
+    var organizer_name_id = $("#organizer_name_id").val();
+    var application_url_id = $("#application_url_id").val();
+    var view_type_id = $("#view_type_id").val();
+
+    var event_temp = $("#template_event_setting").val();
+    var mentor_temp = $("#template_mentor_setting").val();
+    var SNS_temp = $("#template_SNS_setting").val();
+
+    var save_obje = {
+        'Dojo_name':dojo_name,
+        'View_type':view_type_id,
+        'Start_time':open_start_time_id,
+        'Close_time':open_end_time_id,
+        'Open_venue':venue_point_id,
+        'A_word':dojo_emotion_id,
+        'Bring_in':pc_bring_in_id,
+        'Org_name':organizer_name_id,
+        'App_url':application_url_id,
+        'Event_temp':event_temp,
+        'Mentor_temp':mentor_temp,
+        'SNS_temp':SNS_temp
+    };
+
+    var save_json = JSON.stringify(save_obje);
+    localStorage.setItem('Save_Date',save_json);
+});
+
+$('#storage_remove_id').click(function(){
+    localStorage.removeItem('Save_Date');
+    localStorage.clear();
+});
+
+$('#defult_temp_load_id').click(function(){
+    load_temp();
+});

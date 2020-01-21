@@ -29,23 +29,19 @@
             <input type="text" id="pc_Bring_in_id" placeholder="ノートPC以外の持ち物" /><br>
             <input type="text" id="organizer_name_id" placeholder="主催者名"><br>
             <input type="text" id="application_url_id" placeholder="申し込み方法"><br>
-            <input type="submit" id="create_submit_id" value="作成"><br>
+            <input type="submit" id="create_submit_id" value="作成">
+            <input type="reset" value="リセット">
+            <Button type="Button" id="storage_save_id">保存</Button>
+            <Button type="Button" id="storage_remove_id">保存データ削除</Button>
         </form>
+        <Button type="Button" id="defult_temp_load_id">デフォルトテンプレート読み込み</Button>
         <textarea id="template_event_setting" rows="10" cols="80">
         </textarea><br>
 
-        <textarea id="template_mentor_setting" rows="10" cols="80">皆様お疲れ様です！CoderDojo@Dojo_nameの@Org_nameです<br>
-        今月のCoderDojo@Dojo_nameは<br>
-        曜日：@Open_day<br>
-        時間：@Start_time ～ @Close_time<br>
-        場所：@Open_venue<br>
-        にて行います。<br>
-        どしどし参加してください！！<br>
+        <textarea id="template_mentor_setting" rows="10" cols="80">
         </textarea><br>
 
-        <textarea id="template_SNS_setting" rows="10" cols="80">///CoderDojo@Dojo_name 開催のお知らせ///<br>
-        @App_url<br>
-        今月のCoderDojo@Dojo_nameは@Open_day<br>
+        <textarea id="template_SNS_setting" rows="10" cols="80">
         </textarea>
 
         <p id="generator_event_id"></p>
