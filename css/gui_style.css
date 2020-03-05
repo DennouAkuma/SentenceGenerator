@@ -1,0 +1,22 @@
+/* ---Button--- */
+.Bu_style{
+    width: 10em;
+    font-size: 0.8em;
+    font-weight: bold;
+    padding: 0.5em 0.5em;
+    border-style: none;
+    border-radius: 0.3em;
+}
+
+.Bu_type_A{
+    background-color: #61C359;
+    color: #FEEABC;
+}
+
+.Bu_type_B{
+    background-color: #FCAA00;
+    color: #FEEABC;
+}
+
+/* ---Input Text--- */
+

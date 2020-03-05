@@ -1,0 +1,53 @@
+body{
+  margin: 0;
+  font-family: "ヒラギノ角ゴシック";
+  background-color: #FEEABC;
+}
+
+main{
+  position: relative;
+}
+
+#main_content{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ---static_content--- */
+#side_bar{
+  position:absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 2.5em;
+  height: calc(100vh - 3.5em);
+  background-color: black;
+  float: left;
+}
+
+/* ---header--- */
+header{
+  text-align: center;
+  background-color: #FCAA00;
+  color: #FEEABC;
+  margin: 0;
+  height: 3.5em;
+}
+h1{
+  margin: 0;
+}
+
+/* ---content--- */
+.content_right{
+  float: left;
+}
+.content_left{
+  float: right;
+}
+
+/* ---float解除--- */
+.clear{
+  border-style: none;
+  clear: both;
+}

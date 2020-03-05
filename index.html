@@ -1,60 +1,108 @@
-<!Doctype html>
-<head>
-    <meta charset="utf-8">
-    <title></title>
-</head>
-<body>
-    <header>
-
-
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>告知文ジェネレータ</title>
+     <link rel="stylesheet" href="./css/style.css" />
+     <link rel="stylesheet" href="./css/gui_style.css">
+  </head>
+  <body>
+    <header class="title_h1">
+      <h1>
+        CoderDojo告知文ジェネレータ！
+      </h1>
     </header>
     <main>
-        <form id="create_form_id">
-            <select id="dojo_name_id"></select><br>
+      <div id="static_content">
+        <div id="side_bar">
+          <div id="menu_ioc">
+          </div>
+        </div>
+      </div>
+      <div id="main_content">
+        <div class="content_right">
+          <form id="create_form_id">
+            <select id="dojo_name_id"></select
+            ><br />
             <!-- <select id="opne_number_id"></select><br> -->
             <input type="date" id="open_day_date_id" />
             <select id="view_type_id">
-                <option value="null">日付表示形式</option>
-                <option value="0">yyyy/mm/dd</option>
-                <option value="1">yyyy年m月d日</option>
-                <option value="2">m月d日</option>
-                <option value="3">ggge年mm月dd日</option>
-                <option value="4">yy/m/d(aaa)</option>
-                <option value="5">yyyy/mm/dd aaaa</option>
-            </select><br>
-            <input type="time" id="open_start_time_id" /><br>
-            <input type="time" id="open_end_time_id" /><br>
-            <input type="text" id="venue_point_id" placeholder="開催地" /><br>
-            <input type="text" id="dojo_emotion_id" placeholder="Dojoにかける熱意を一言で" /><br>
-            <input type="text" id="pc_Bring_in_id" placeholder="ノートPC以外の持ち物" /><br>
-            <input type="text" id="organizer_name_id" placeholder="主催者名"><br>
-            <input type="text" id="application_url_id" placeholder="申し込み方法"><br>
-            <input type="submit" id="create_submit_id" value="作成">
-            <input type="reset" value="リセット">
-            <Button type="Button" id="storage_save_id">保存</Button>
-            <Button type="Button" id="storage_remove_id">保存データ削除</Button>
-        </form>
-        <Button type="Button" id="defult_temp_load_id">デフォルトテンプレート読み込み</Button>
-        <textarea id="template_event_setting" rows="10" cols="80">
-        </textarea><br>
+              <option value="null">日付表示形式</option>
+              <option value="0">yyyy/mm/dd</option>
+              <option value="1">yyyy年m月d日(a)</option>
+              <option value="2">m月d日</option>
+              <option value="3">ggge年mm月dd日</option>
+              <option value="4">yy/m/d(aaa)</option>
+              <option value="5">yyyy/mm/dd aaaa</option> </select
+            ><br />
+            <input type="time" id="open_start_time_id" /><br />
+            <input type="time" id="open_end_time_id" /><br />
+            <input type="text" id="venue_point_id" placeholder="開催地" /><br />
+            <input
+              type="text"
+              id="dojo_emotion_id"
+              placeholder="Dojoにかける熱意を一言で"
+            /><br />
+            <input
+              type="text"
+              id="pc_Bring_in_id"
+              placeholder="ノートPC以外の持ち物"
+            /><br />
+            <input
+              type="text"
+              id="organizer_name_id"
+              placeholder="主催者名"
+            /><br />
+            <input
+              type="text"
+              id="application_url_id"
+              placeholder="申し込み方法"
+            /><br />
+            <input type="submit" class="Bu_style Bu_type_A" id="create_submit_id" value="作成"/>
+            <input type="reset" class="Bu_style Bu_type_B" value="リセット"/>
+            <button type="Button" class="Bu_style Bu_type_A" id="storage_save_id">保存</button>
+            <button type="Button" class="Bu_style Bu_type_A" id="storage_remove_id">保存データ削除</button>
+          </form>
+          <br /><br />
 
-        <textarea id="template_mentor_setting" rows="10" cols="80">
-        </textarea><br>
+          ～イベント概要～
+          <p id="generator_event_id"></p>
+          <button id="event_temp_copy" class="Bu_style Bu_type_A" type="Button">↑コピー↑</button><br />
 
-        <textarea id="template_SNS_setting" rows="10" cols="80">
-        </textarea>
+          ～メンター向け告知～
+          <p id="generator_mentor_id"></p>
+          <button id="mentor_temp_copy" class="Bu_style Bu_type_A" type="Button">↑コピー↑</button><br />
 
-        <p id="generator_event_id"></p>
-        <Button id="event_temp_copy" type="Button">コピー</Button>
-        <p id="generator_mentor_id"></p>
-        <Button id="mentor_temp_copy" type="Button">コピー</Button>
-        <p id="generator_SNS_id"></p>
-        <Button id="SNS_temp_copy" type="Button">コピー</Button>
+          ～SNS向け告知～
+          <p id="generator_SNS_id"></p>
+          <button id="SNS_temp_copy" class="Bu_style Bu_type_A" type="Button">↑コピー↑</button><br />
+        </div>
+        <div class="content_left">
+
+          <textarea id="template_event_setting" rows="10" cols="80"> </textarea
+          ><br />
+          <textarea id="template_mentor_setting" rows="10" cols="80"> </textarea
+          ><br />
+          <textarea id="template_SNS_setting" rows="10" cols="80"> </textarea><br />
+          <button type="Button" id="defult_temp_load_id" class="b3">
+            デフォルトテンプレート読み込み</button
+          ><br />
+        </div>
+        <hr class="clear">
+      </div>
     </main>
     <footer>
-    
+    <p>
+      このウェブページは素晴らしい<a href="https://www.glitch.com">Glitch</a>によってホスティングされています！
+    </p>
     </footer>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="./js/main_script.js"></script>
-</body>
+  </body>
+  <script
+    type="text/javascript"
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+  ></script>
+  <script
+    type="text/javascript"
+    src="./js/anime_script.js"></script>
+  <script type="text/javascript" src="./js/main_script.js"></script>
 </html>
